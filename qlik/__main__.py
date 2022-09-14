@@ -1,9 +1,7 @@
-from .utils import draw_title
+from .utils import draw_title, BASE_DIR
 from PIL import Image
 import argparse
-import os
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 if __name__ == "__main__":
 
@@ -19,7 +17,7 @@ if __name__ == "__main__":
     # layer = input("Digite o nome da camada: ")
     # version = input("Digite a versão da aplicação: ")
 
-    background_img = Image.open(f'{BASE_DIR}/assets/background.png')
+    background_img = Image.open(f'{BASE_DIR}/assets/images/background.png')
 
     final_img = draw_title(background_img, args.project, f'{args.layer} - {args.version}')
 

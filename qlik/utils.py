@@ -1,4 +1,7 @@
 from PIL import ImageDraw, ImageFont
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def get_text_dimensions(text_string, font):
     # https://stackoverflow.com/a/46220683/9263761
@@ -13,8 +16,8 @@ def draw_title(img, title, subtitle, color=(255, 255, 255)):
     img_width, img_height = img.size
     draw = ImageDraw.Draw(img)
 
-    title_font = ImageFont.truetype("Arial Black.ttf", 400)
-    subtitle_font = ImageFont.truetype("Arial.ttf", int(400 * 0.30))
+    title_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial Black.ttf', 400)
+    subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf', int(400 * 0.30))
 
     title_width, title_height = get_text_dimensions(title, title_font)
     subtitle_width, subtitle_height = get_text_dimensions(subtitle, subtitle_font)
