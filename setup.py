@@ -10,7 +10,7 @@ setuptools.setup(
         description="Toolkit to use with Qlik",
         package_dir={"": "qlik"},
         include_package_data=True,
-        packages=setuptools.find_packages(where="qlik"),
+        packages=setuptools.find_packages(),
         package_data={"assets": ["*.png"]},
         classifiers=[
             "Programming Language :: Python :: 3",
