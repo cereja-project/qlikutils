@@ -8,7 +8,6 @@ setuptools.setup(
         author="Kin Torres",
         author_email="kin.mello@gmail.com",
         description="Toolkit to use with Qlik",
-        include_package_data=True,
         packages=setuptools.find_packages(),
         package_data={"assets": ["*.png"]},
         classifiers=[
