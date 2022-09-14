@@ -3,7 +3,7 @@ import setuptools
 REQUIRED_PACKAGES = ['Pillow']
 
 setuptools.setup(
-        name="Qlik Utils",
+        name="qlikutils",
         version="1.0.0",
         author="Kin Torres",
         author_email="kin.mello@gmail.com",
