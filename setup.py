@@ -4,7 +4,7 @@ REQUIRED_PACKAGES = ['Pillow']
 
 setuptools.setup(
         name="qlikutils",
-        version="1.0.0",
+        version="1.0.1",
         author="Kin Torres",
         author_email="kin.mello@gmail.com",
         description="Toolkit to use with Qlik",
