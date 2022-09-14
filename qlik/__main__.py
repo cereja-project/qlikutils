@@ -1,6 +1,7 @@
 from .utils import draw_title, BASE_DIR
 from PIL import Image
 import argparse
+import os
 
 
 if __name__ == "__main__":
@@ -21,4 +22,7 @@ if __name__ == "__main__":
 
     final_img = draw_title(background_img, args.project, f'{args.layer} - {args.version}')
 
-    final_img.save(f'{args.output_dir}/{args.project}_{args.layer}_tumbnail_{args.version}.png')
+    filepath = f'{args.output_dir}/{args.project}_{args.layer}_tumbnail_{args.version}.png'
+    final_img.save(filepath)
+
+    os.system(filepath)
