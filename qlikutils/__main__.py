@@ -2,6 +2,7 @@ from .utils import draw_title, BASE_DIR
 from PIL import Image
 import argparse
 import os
+import sys
 
 
 if __name__ == "__main__":
@@ -25,4 +26,7 @@ if __name__ == "__main__":
     filepath = f'{args.output_dir}/{args.project}_{args.layer}_tumbnail_{args.version}.png'
     final_img.save(filepath)
 
-    os.system(filepath)
+    if sys.platform == 'win32':
+        os.system(filepath)
+    else:
+        sys.stdout.write(f'The file was created in the following path: {filepath}.\n')

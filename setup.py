@@ -4,15 +4,15 @@ REQUIRED_PACKAGES = ['Pillow']
 
 setuptools.setup(
     name="qlikutils",
-    version="1.0.9",
+    version="1.1.0",
     author="Kin Torres",
     author_email="kin.mello@gmail.com",
     description="Toolkit to use with Qlik",
     packages=setuptools.find_namespace_packages(),
     package_data={
-        "qlik.assets": ["*"],
-        "qlik.assets.images": ["*.png"],
-        "qlik.assets.fonts": ["*.ttf"]
+        "qlikutils.assets": ["*"],
+        "qlikutils.assets.images": ["*.png"],
+        "qlikutils.assets.fonts": ["*.ttf"]
     },
     classifiers=[
         "Programming Language :: Python :: 3",
