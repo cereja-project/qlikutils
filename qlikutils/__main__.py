@@ -15,15 +15,11 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    # project = input("Digite o nome do projeto: ")
-    # layer = input("Digite o nome da camada: ")
-    # version = input("Digite a versão da aplicação: ")
-
     background_img = Image.open(f'{BASE_DIR}/assets/images/background.png')
 
     final_img = draw_title(background_img, args.project, f'{args.layer} - {args.version}')
 
-    filepath = f'{args.output_dir}/{args.project}_{args.layer}_tumbnail_{args.version}.png'
+    filepath = f'{args.output_dir}/{args.project}_{args.layer}_thumbnail_{args.version}.png'
     final_img.save(filepath)
 
     if sys.platform == 'win32':
