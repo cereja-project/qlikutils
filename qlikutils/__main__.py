@@ -9,7 +9,7 @@ if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Qlik Tools')
     parser.add_argument('--project', type=str, required=True)
-    parser.add_argument('--layer', type=str, required=True, choices=['Extração', 'Transformação', 'Visualização'])
+    parser.add_argument('--layer', type=str, required=True, choices=['Extração', 'Transformação', 'Visualização', 'Extraction', 'Transformation', 'Visualization'])
     parser.add_argument('--version', type=str, required=True)
     parser.add_argument('--output_dir', type=str, required=True)
 
