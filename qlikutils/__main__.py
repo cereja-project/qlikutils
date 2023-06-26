@@ -19,7 +19,8 @@ if __name__ == "__main__":
 
     final_img = draw_title(background_img, args.project, f'{args.layer} - {args.version}')
 
-    filepath = f'{args.output_dir}/{args.project}_{args.layer}_thumbnail_{args.version}.png'
+    project_name = args.project.replace(" ", "_").replace("\\", "").replace("/", "")
+    filepath = f'{args.output_dir}/{project_name}_{args.layer}_thumbnail_{args.version}.png'
     final_img.save(filepath)
 
     if sys.platform == 'win32':
