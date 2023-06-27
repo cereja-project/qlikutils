@@ -1,4 +1,4 @@
-from PIL import ImageDraw, ImageFont
+from PIL import ImageDraw, ImageFont, Image
 import os
 from unidecode import unidecode
 
@@ -80,5 +80,36 @@ def draw_title(img, title, subtitle, color=(255, 255, 255)):
 
     subtitle_position = ((img_width - subtitle_width) / 2, 600)
     draw.text(subtitle_position, subtitle, color, font=subtitle_font)
+
+    return img
+
+def resize_image(img, img_width, img_height):
+    # Resize proportionally
+    original_proportion = img.size[0] / img.size[1]
+    new_proportion = img_width / img_height
+    if original_proportion > new_proportion: # If the original image is wider than the desired proportion, fit it by the height
+        new_proportional_width = img.size[0] - ((img.size[1] - img_height) * original_proportion)
+        img = img.resize((int(new_proportional_width), img_height), Image.ANTIALIAS)
+    elif original_proportion < new_proportion: # If the original image is taller than the desired proportion, fit it by the width
+        new_proportion_height = int(img.size[1] - ((img.size[0] - img_width) / original_proportion))
+        img = img.resize((img_width, int(new_proportion_height)), Image.ANTIALIAS)
+    else: # If the original image has the same proportion as the desired size, just resize it
+        img.thumbnail((img_width, img_height), Image.ANTIALIAS)
+        return img
+
+    # Crop the image to the desired size
+    if img.size[0] != img_width: # If the image is wider than the desired size, crop it by the width
+        x0 = (img.size[0] - img_width) // 2
+        x1 = x0 + img_width
+        y0 = 0
+        y1 = img_height
+        img = img.crop((x0, y0, x1, y1))
+    
+    if img.size[1] != img_height: # If the image is taller than the desired size, crop it by the height
+        x0 = 0
+        x1 = img_width
+        y0 = (img.size[1] - img_height) // 2
+        y1 = y0 + img_height
+        img = img.crop((x0, y0, x1, y1))
 
     return img
