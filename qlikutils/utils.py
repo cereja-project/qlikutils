@@ -61,7 +61,7 @@ def draw_title(img, title, subtitle, color=(255, 255, 255)):
                                     get_font_size(wrapped_text, ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial Black.ttf'), img_width, 400))
     # subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf', 
                                     # get_font_size(subtitle, ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf'), img_width, int(400 * 0.30)))
-    subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf', int(400 * 0.30))
+    subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf', int(400 * 0.25))
 
     title_width, title_height = get_text_dimensions(wrapped_text, title_font, img_width, img_height)
     subtitle_width, subtitle_height = get_text_dimensions(subtitle, subtitle_font, img_width, img_height)
@@ -78,7 +78,8 @@ def draw_title(img, title, subtitle, color=(255, 255, 255)):
         draw.text(((img_width - w) / 2, current_h), title_line, color, font=title_font)
         current_h += title_height + line_spacing_size
 
-    subtitle_position = ((img_width - subtitle_width) / 2, 600)
+    subtitle_padding_top = img_height - (0.25 * img_height) + (0.02 * img_height) # 75% + 2% of margin between title and subtitle area
+    subtitle_position = ((img_width - subtitle_width) / 2, subtitle_padding_top)
     draw.text(subtitle_position, subtitle, color, font=subtitle_font)
 
     return img
