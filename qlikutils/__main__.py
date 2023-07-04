@@ -9,7 +9,7 @@ import path
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Qlik Tools')
-    parser.add_argument('--title', type=str, required=True, help='project title to be displayed in the thumbnail (max 100 characters)')
+    parser.add_argument('--title', type=str, required=True, help='project title to be displayed in the thumbnail (max 50 characters)')
     parser.add_argument('--subtitle', type=str, required=True, help='project subtitle to be displayed in the thumbnail (max 20 characters)')
     parser.add_argument('--version', type=str, required=True, help='project version to be displayed in the thumbnail (max 10 characters) (e.g. "v1.0", "v2.0")')
     parser.add_argument('--background', type=str, required=False, default=str(path.Path(__file__).parent/'assets'/'images'/'background.png'), help='Background image to be used (default: "assets/images/background.png")')
@@ -17,7 +17,7 @@ if __name__ == "__main__":
 
     args = parser.parse_args()
 
-    assert len(args.title) <= 100, "--title str has more than 100 characters"
+    assert len(args.title) <= 50, "--title str has more than 50 characters"
     assert len(args.subtitle) <= 20, "--subtitle str has more than 20 characters"
     assert len(args.version) <= 10, "--version str has more than 10 characters"
 

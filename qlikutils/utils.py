@@ -75,6 +75,7 @@ def draw_title(img, title, subtitle, color=(255, 255, 255)):
     
     current_h = title_margin_top + title_padding_top
     for title_line in wrapped_text.split('\n'):
+        # TODO: For some reason neither the variables 'h' or 'title_height' has the exactly font size. But it is almost in the center
         w, h = draw.textsize(title_line, font=title_font)
         draw.text(((img_width - w) / 2, current_h), title_line, color, font=title_font, spacing=0, anchor="lt")
         current_h += title_height + line_spacing_height
