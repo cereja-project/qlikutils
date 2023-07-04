@@ -15,7 +15,7 @@ def get_font_size(text: str, font: ImageFont, image_size: float, max_font_size: 
 
     return font.size
 
-def get_wrapped_text(text: str, max_size: int = 20) -> str:
+def get_wrapped_text(text: str, max_size: int = 15) -> str:
     # Get max line size
     text_size = len(text)
     biggest_word_size = max([len(word) for word in text.split()])
@@ -61,26 +61,28 @@ def draw_title(img, title, subtitle, color=(255, 255, 255)):
                                     get_font_size(wrapped_text, ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial Black.ttf'), img_width, 400))
     # subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf', 
                                     # get_font_size(subtitle, ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf'), img_width, int(400 * 0.30)))
-    subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf', int(400 * 0.25))
+    subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Arial.ttf', int(400 * 0.20))
 
     title_width, title_height = get_text_dimensions(wrapped_text, title_font, img_width, img_height)
     subtitle_width, subtitle_height = get_text_dimensions(subtitle, subtitle_font, img_width, img_height)
 
+    # Draw title
     lines_qty = len(wrapped_text.split('\n'))
-    fixed_margin_top = 0.05 * img_height # 5% of the image height
-    title_block_height = (img_height // 2) - fixed_margin_top # Area where the title will be drawn
-    line_spacing_size = min(70, (title_block_height - (lines_qty * title_height)) / (lines_qty - 1)) if lines_qty > 1 else 0
-    var_margin_top = ( title_block_height - (lines_qty * title_height) - ((lines_qty - 1) * line_spacing_size) ) // 2
+    title_margin_top = 0.25 * img_height # 25% of the image height
+    title_block_height = 0.50 * img_height # 50% of the image height
+    line_spacing_height = min(70, ( title_block_height - (lines_qty * title_height) ) // (lines_qty - 1)) if lines_qty > 1 else 0
+    title_padding_top = ( title_block_height - (lines_qty * title_height) - ( (lines_qty - 1) * line_spacing_height) ) // 2
     
-    current_h = fixed_margin_top + var_margin_top
+    current_h = title_margin_top + title_padding_top
     for title_line in wrapped_text.split('\n'):
         w, h = draw.textsize(title_line, font=title_font)
-        draw.text(((img_width - w) / 2, current_h), title_line, color, font=title_font)
-        current_h += title_height + line_spacing_size
+        draw.text(((img_width - w) / 2, current_h), title_line, color, font=title_font, spacing=0, anchor="lt")
+        current_h += title_height + line_spacing_height
 
-    subtitle_padding_top = img_height - (0.25 * img_height) + (0.02 * img_height) # 75% + 2% of margin between title and subtitle area
-    subtitle_position = ((img_width - subtitle_width) / 2, subtitle_padding_top)
-    draw.text(subtitle_position, subtitle, color, font=subtitle_font)
+    # Draw subtitle
+    subtitle_margin_top = img_height - (0.25 * img_height) + (0.04 * img_height) # 75% + 4% of margin between title and subtitle area
+    subtitle_position = ((img_width - subtitle_width) // 2, subtitle_margin_top)
+    draw.text(subtitle_position, subtitle, color, font=subtitle_font, anchor="lt")
 
     return img
 
