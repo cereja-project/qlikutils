@@ -48,6 +48,9 @@ def get_text_dimensions(text_string, font, img_width, img_height):
     # https://stackoverflow.com/a/46220683/9263761
     ascent, descent = font.getmetrics()
 
+    if not text_string:  # Verificar se a string é vazia e retornar dimensões nulas
+        return (0, 0)
+
     # Get the largest line in the text
     largest_line = max(text_string.split('\n'), key=len).strip()
     lines_count = len(text_string.split('\n'))
@@ -56,7 +59,7 @@ def get_text_dimensions(text_string, font, img_width, img_height):
     text_height = font.getmask(largest_line).getbbox()[3] - descent
 
     return (text_width, text_height)
-
+    
 def draw_texts(img, title, subtitle, version, color=(255, 255, 255), title_position='center', version_position='center'):
     img_width, img_height = img.size
     draw = ImageDraw.Draw(img)
