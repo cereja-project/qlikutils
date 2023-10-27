@@ -1,6 +1,7 @@
 from .utils import draw_texts, resize_image, BASE_DIR
 from PIL import Image
 import argparse
+import re
 import os
 import sys
 import path
