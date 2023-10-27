@@ -9,14 +9,16 @@ def parse_color(value):
     length = len(value)
 
     if length not in (3, 6):
-        raise ValueError("The color must be a 3 or 6-digit hexadecimal code (e.g., 'FFA500' or 'F00').")
+        print("Error: The color must be a 3 or 6-digit hexadecimal code (e.g., 'FFA500' or 'F00').")
+        return None  # Return None to indicate an error
 
     try:
         # Try to convert the value into an RGB tuple
         rgb = tuple(int(value[i:i + length // 3], 16) for i in range(0, length, length // 3))
         return rgb
     except ValueError:
-        raise ValueError(f"Invalid color value: '{value}'. The color must be a valid hexadecimal code.")
+        print(f"Error: Invalid color value: '{value}'. The color must be a valid hexadecimal code.")
+        return None  # Return None to indicate an error
 
 
 def get_font_size(text: str, font: ImageFont, image_size: float, max_font_size: int = 400, padding_percent: float = 0.15):
