@@ -5,10 +5,19 @@ from unidecode import unidecode
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def parse_color(value):
-    """Convert a hexadecimal color to an RGB tuple."""
-    value = value.lstrip('#')
+    value = value.lstrip('#')  # Remove the '#' character if present
     length = len(value)
-    return tuple(int(value[i:i+length//3], 16) for i in range(0, length, length//3))
+
+    if length not in (3, 6):
+        raise ValueError("The color must be a 3 or 6-digit hexadecimal code (e.g., 'FFA500' or 'F00').")
+
+    try:
+        # Try to convert the value into an RGB tuple
+        rgb = tuple(int(value[i:i + length // 3], 16) for i in range(0, length, length // 3))
+        return rgb
+    except ValueError:
+        raise ValueError(f"Invalid color value: '{value}'. The color must be a valid hexadecimal code.")
+
 
 def get_font_size(text: str, font: ImageFont, image_size: float, max_font_size: int = 400, padding_percent: float = 0.15):
     # Get the biggest word in the text
