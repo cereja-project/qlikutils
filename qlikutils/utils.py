@@ -55,12 +55,10 @@ def wrap_text(text: str, max_size: int = 11) -> str:
 
     return '\n'.join(lines).strip()
 
+
 def get_text_dimensions(text_string, font, img_width, img_height):
     # https://stackoverflow.com/a/46220683/9263761
     ascent, descent = font.getmetrics()
-
-    if not text_string:  # Verificar se a string é vazia e retornar dimensões nulas
-        return (0, 0)
 
     # Get the largest line in the text
     largest_line = max(text_string.split('\n'), key=len).strip()
@@ -80,26 +78,23 @@ def draw_texts(img, title, subtitle, version, color=(255, 255, 255), title_posit
     # Convert color to RGB tuple
     color = parse_color(color)
 
-    # Define title font and calculate dimensions
-    title_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Rubik-Medium.ttf', 95)
-    title_width, title_height = get_text_dimensions(wrapped_title, title_font, img_width, img_height)
+    # Calculate subtitle position
+    subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Rubik-Regular.ttf', 45)
+    subtitle_width, subtitle_height = get_text_dimensions(subtitle, subtitle_font, img_width, img_height)
+    
+    if not subtitle:  # Check if subtitle is an empty string
+        title_margin_top = (img_height - title_height) // 2  # Vertically center the title
+    else:
+        title_margin_top = 0.175 * img_height  # 17.5% of the image height
 
-    # Calculate title positioning parameters
-    lines_qty = len(wrapped_title.split('\n'))
-    title_margin_top = 0.175 * img_height
-    title_block_height = (0.30 if lines_qty == 1 else 0.40) * img_height
+    title_block_height = (0.30 if lines_qty == 1 else 0.40) * img_height  # 40% of the image height
     line_spacing_height = min(35, (title_block_height - (lines_qty * title_height)) // (lines_qty - 1)) if lines_qty > 1 else 0
     title_padding_top = (title_block_height - (lines_qty * title_height) - ((lines_qty - 1) * line_spacing_height)) // 2
-    title_padding_top += 0.05 * img_height if lines_qty == 1 else 0
-
-    # Calculate initial vertical position for title text
-    if not subtitle:
-        current_h = (img_height - title_height) // 2
-    else:
-        current_h = title_margin_top + title_padding_top
-
-    # Draw each line of wrapped title
-    for title_line in wrapped_title.split('\n'):
+    title_padding_top += 0.05 * img_height if lines_qty == 1 else 0  # 0.36% of margin between title and subtitle area
+    
+    current_h = title_margin_top + title_padding_top
+    for title_line in wrapped_text.split('\n'):
+        # TODO: For some reason neither the variables 'h' or 'title_height' has the exactly font size. But it is almost in the center
         w, h = draw.textsize(title_line, font=title_font)
 
         if title_position == 'center':
@@ -112,22 +107,19 @@ def draw_texts(img, title, subtitle, version, color=(255, 255, 255), title_posit
         draw.text(title_position_axis, title_line, color, font=title_font, spacing=0, anchor="lt")
         current_h += title_height + line_spacing_height
 
-    # Draw subtitle if it's not empty
-    if subtitle:
-        subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Rubik-Regular.ttf', 45)
-        subtitle_width, subtitle_height = get_text_dimensions(subtitle, subtitle_font, img_width, img_height)
-        subtitle_margin_top = title_margin_top + title_block_height + (0.036 * img_height) 
+    # Draw subtitle
+    subtitle_margin_top = title_margin_top + title_block_height + (0.036 * img_height) 
 
-        if title_position == 'center':
-            subtitle_position_axis = ((img_width - subtitle_width) // 2, subtitle_margin_top)
-        elif title_position == 'left':
-            subtitle_position_axis = (0.125 * img_width, subtitle_margin_top)
-        elif title_position == 'right':
-            subtitle_position_axis = (img_width - subtitle_width - (0.125 * img_width), subtitle_margin_top)
+    if title_position == 'center':
+        subtitle_position_axis = ((img_width - subtitle_width) // 2, subtitle_margin_top)
+    elif title_position == 'left':
+        subtitle_position_axis = (0.125 * img_width, subtitle_margin_top)
+    elif title_position == 'right':
+        subtitle_position_axis = (img_width - subtitle_width - (0.125 * img_width), subtitle_margin_top)
 
-        draw.text(subtitle_position_axis, subtitle, color, font=subtitle_font, anchor="lt")
+    draw.text(subtitle_position_axis, subtitle, color, font=subtitle_font, anchor="lt")
 
-    # Draw version
+    # Draw version'
     version_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Rubik-Regular.ttf', 35)
     version_width, version_height = get_text_dimensions(version, version_font, img_width, img_height)
 
