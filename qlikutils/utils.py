@@ -78,6 +78,9 @@ def draw_texts(img, title, subtitle, version, color=(255, 255, 255), title_posit
     # Convert color to RGB tuple
     color = parse_color(color)
 
+    # Calculate lines_qty
+    lines_qty = len(wrapped_text.split('\n'))
+
     # Calculate subtitle position
     subtitle_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Rubik-Regular.ttf', 45)
     subtitle_width, subtitle_height = get_text_dimensions(subtitle, subtitle_font, img_width, img_height)
@@ -87,7 +90,7 @@ def draw_texts(img, title, subtitle, version, color=(255, 255, 255), title_posit
     else:
         title_margin_top = 0.175 * img_height  # 17.5% of the image height
 
-    title_block_height = (0.30 if lines_qty == 1 else 0.40) * img_height  # 40% of the image height
+    title_block_height = (0.30 if  == 1 else 0.40) * img_height  # 40% of the image height
     line_spacing_height = min(35, (title_block_height - (lines_qty * title_height)) // (lines_qty - 1)) if lines_qty > 1 else 0
     title_padding_top = (title_block_height - (lines_qty * title_height) - ((lines_qty - 1) * line_spacing_height)) // 2
     title_padding_top += 0.05 * img_height if lines_qty == 1 else 0  # 0.36% of margin between title and subtitle area
