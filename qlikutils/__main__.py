@@ -1,4 +1,4 @@
-from .utils import draw_texts, resize_image, BASE_DIR
+from .utils import draw_texts, resize_image, valid_color, BASE_DIR
 from PIL import Image
 import argparse
 import os
@@ -17,10 +17,7 @@ if __name__ == "__main__":
     parser.add_argument('--output_dir', type=str, required=False, default=str(path.Path(__file__).parent.parent/'output'), help='Output directory to save the thumbnail (default: "output/")')
     parser.add_argument('--title_position', type=str, required=False, default='center', choices=['center', 'left', 'right'], help='Title position (default: "center")')
     parser.add_argument('--version_position', type=str, required=False, default='center', choices=['center', 'left', 'right'], help='Version position (default: "center")')
-    parser.add_argument('--color', type=str, required=False, default='white', choices=['white', 'blue'], help='Text color (default: "white")')
-    # parser.add_argument('--title_font', type=str, required=False, default=str(path.Path(__file__).parent/'assets'/'fonts'/'Rubik-Medium.ttf'), help='Font to be used (default: "assets/fonts/Rubik-Medium.ttf")')
-    # parser.add_argument('--subtitle_font', type=str, required=False, default=str(path.Path(__file__).parent/'assets'/'fonts'/'Rubik-Regular.ttf'), help='Font to be used (default: "assets/fonts/Rubik-Regular.ttf")')
-    # parser.add_argument('--version_font', type=str, required=False, default=str(path.Path(__file__).parent/'assets'/'fonts'/'Rubik-Regular.ttf'), help='Font to be used (default: "assets/fonts/Rubik-Regular.ttf")')
+    parser.add_argument('--color', type=valid_color, required=False, default='white', help='Text color (default: "white"). Allowed values are "black", "white", or a valid hexadecimal.')
 
     args = parser.parse_args()
 
