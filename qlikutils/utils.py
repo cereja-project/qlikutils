@@ -4,7 +4,7 @@ from unidecode import unidecode
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-def hex_to_rgb(value):
+def parse_color(value):
     """Convert a hexadecimal color to an RGB tuple."""
     value = value.lstrip('#')
     length = len(value)
