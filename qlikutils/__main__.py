@@ -1,4 +1,4 @@
-from .utils import draw_texts, resize_image, valid_color, BASE_DIR
+from .utils import draw_texts, resize_image, BASE_DIR
 from PIL import Image
 import argparse
 import os
@@ -6,6 +6,13 @@ import sys
 import path
 import platform
 
+def valid_color(value):
+    """Validate if the input is 'black', 'white', or a valid hexadecimal."""
+    if value in ('black', 'white'):
+        return value
+    if re.match(r'^#(?:[0-9a-fA-F]{3}){1,2}$', value):
+        return value
+    raise argparse.ArgumentTypeError(f"Invalid color value: '{value}'. Allowed values are 'black', 'white', or a valid hexadecimal.")
 
 if __name__ == "__main__":
 
