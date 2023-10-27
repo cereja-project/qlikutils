@@ -21,7 +21,7 @@ def get_font_size(text: str, font: ImageFont, image_size: float, max_font_size: 
 
     return font.size
 
-def get_wrapped_text(text: str, max_size: int = 11) -> str:
+def wrap_text(text: str, max_size: int = 11) -> str:
     # Get max line size
     text_size = len(text)
     biggest_word_size = max([len(word) for word in text.split()])
