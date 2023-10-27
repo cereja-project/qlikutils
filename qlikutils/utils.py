@@ -1,8 +1,17 @@
 from PIL import ImageDraw, ImageFont, Image
 import os
 from unidecode import unidecode
+import re
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+def valid_color(value):
+    """Validate if the input is 'black', 'white', or a valid hexadecimal."""
+    if value in ('black', 'white'):
+        return value
+    if re.match(r'^#(?:[0-9a-fA-F]{3}){1,2}$', value):
+        return value
+    raise argparse.ArgumentTypeError(f"Invalid color value: '{value}'. Allowed values are 'black', 'white', or a valid hexadecimal.")
 
 def hex_to_rgb(value):
     """Convert a hexadecimal color to an RGB tuple."""
