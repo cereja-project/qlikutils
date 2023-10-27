@@ -1,7 +1,6 @@
 from PIL import ImageDraw, ImageFont, Image
 import os
 from unidecode import unidecode
-import re
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
