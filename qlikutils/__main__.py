@@ -4,6 +4,7 @@ import argparse
 import os
 import sys
 import path
+import platform
 
 
 if __name__ == "__main__":
@@ -38,9 +39,9 @@ if __name__ == "__main__":
     filepath = f'{args.output_dir}/{project_name}_{args.subtitle}_thumbnail_{args.version}.png'
     final_img.save(filepath)
 
-    try:
-        os.system(filepath)
-    except:
-        pass
-    finally:
-        sys.stdout.write(f'The file was created in the following path: {filepath}.\n')
+    if platform.system() == "Darwin":  # macOS
+        os.system(f'open "{filepath}"')
+    elif platform.system() == "Linux":
+        os.system(f'xdg-open "{filepath}"')
+    
+    sys.stdout.write(f'The file was created in the following path: {filepath}.\n')
