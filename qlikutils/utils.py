@@ -4,6 +4,12 @@ from unidecode import unidecode
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def hex_to_rgb(value):
+    """Convert a hexadecimal color to an RGB tuple."""
+    value = value.lstrip('#')
+    length = len(value)
+    return tuple(int(value[i:i+length//3], 16) for i in range(0, length, length//3))
+
 def get_font_size(text: str, font: ImageFont, image_size: float, max_font_size: int = 400, padding_percent: float = 0.15):
     # Get the biggest word in the text
     largest_word = max(text.split('\n'), key=len).strip()
@@ -60,8 +66,11 @@ def draw_texts(img, title, subtitle, version, color=(255, 255, 255), title_posit
     # Get color
     if color == 'white':
         color = (255, 255, 255)
-    elif color == 'blue':
-        color = (33, 82, 114)
+    elif color == 'black':
+        color = (0, 0, 0)
+    elif color.startswith('#'):
+        color = hex_to_rgb(color)
+
 
     # Draw title
     title_font = ImageFont.truetype(f'{BASE_DIR}/assets/fonts/Rubik-Medium.ttf', 95)
