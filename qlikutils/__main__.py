@@ -1,4 +1,4 @@
-from .utils import draw_texts, resize_image, BASE_DIR
+from .utils import draw_texts, resize_image, get_file_name, BASE_DIR
 from PIL import Image
 import argparse
 import re
@@ -40,8 +40,9 @@ if __name__ == "__main__":
 
     if not os.path.exists(args.output_dir):
         os.makedirs(args.output_dir)
-    project_name = args.title.strip().replace(" ", "_").replace("\\", "").replace("/", "")
-    filepath = f'{args.output_dir}/{project_name}_{args.subtitle}_thumbnail_{args.version}.png'
+
+    project_name = get_file_name(args.title, args.subtitle, args.version)
+    filepath = f'{args.output_dir}/{project_name}'
     final_img.save(filepath)
 
     if platform.system() == "Darwin":  # macOS
