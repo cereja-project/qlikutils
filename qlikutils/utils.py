@@ -4,6 +4,23 @@ from unidecode import unidecode
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def get_file_name(title: str, subtitle: str, version: str) -> str:
+    """
+    Get the file name based on the title, subtitle and version.
+    
+    Args:
+        title (str): The project title.
+        subtitle (str): The project subtitle.
+        version (str): The project version.
+
+    Returns:
+        str: The file name with png extension.
+    """
+    project_name = title.strip().replace(" ", "_").replace("\\", "").replace("/", "")
+    subtitle_name = subtitle.strip().replace(" ", "_").replace("\\", "").replace("/", "")
+    version_name = version.strip().replace(" ", "_").replace("\\", "").replace("/", "")
+    return f'{project_name}_{subtitle_name}_thumbnail_{version_name}.png'
+
 def parse_color(value):
     value = value.lstrip('#')  # Remove the '#' character if present
     length = len(value)
